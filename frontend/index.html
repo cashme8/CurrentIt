@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurrentIt - Rwanda Currency Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>💱 CurrentIt</h1>
+                <p>Rwanda Currency Converter & Exchange Rate Dashboard</p>
+            </div>
+        </header>
+
+        <main>
+            <!-- Converter Section -->
+            <section class="converter-section">
+                <h2>Quick Converter</h2>
+                <div class="converter-form">
+                    <div class="form-group">
+                        <label for="amount">Amount:</label>
+                        <input 
+                            type="number" 
+                            id="amount" 
+                            value="1" 
+                            min="0.01" 
+                            step="0.01"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fromCurrency">From:</label>
+                        <select id="fromCurrency">
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="RWF" selected>RWF - Rwandan Franc</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="KES">KES - Kenyan Shilling</option>
+                            <option value="UGX">UGX - Uganda Shilling</option>
+                            <option value="TZS">TZS - Tanzanian Shilling</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                        </select>
+                    </div>
+
+                    <div class="swap-btn">
+                        <button id="swapBtn" title="Swap currencies">⇄</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toCurrency">To:</label>
+                        <select id="toCurrency">
+                            <option value="USD" selected>USD - US Dollar</option>
+                            <option value="RWF">RWF - Rwandan Franc</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="KES">KES - Kenyan Shilling</option>
+                            <option value="UGX">UGX - Uganda Shilling</option>
+                            <option value="TZS">TZS - Tanzanian Shilling</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="conversionResult" class="result-box" style="display: none;">
+                    <div class="result-content">
+                        <span id="resultText"></span>
+                        <small id="resultTime"></small>
+                    </div>
+                </div>
+
+                <button id="convertBtn" class="btn-primary">Convert</button>
+            </section>
+
+            <!-- Error/Loading -->
+            <div id="loading" class="loading" style="display: none;">Loading...</div>
+            <div id="error" class="error-message" style="display: none;"></div>
+
+            <!-- Exchange Rates Table -->
+            <section class="rates-section">
+                <h2>Current Exchange Rates (Base: USD)</h2>
+                
+                <div class="controls">
+                    <input 
+                        type="text" 
+                        id="searchCurrency" 
+                        placeholder="Search currency..."
+                        class="search-input"
+                    >
+                    <select id="sortBy" class="sort-select">
+                        <option value="name">Sort by Name</option>
+                        <option value="rate">Sort by Rate</option>
+                    </select>
+                </div>
+
+                <div id="ratesTable" class="rates-table">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Historical Chart -->
+            <section class="chart-section">
+                <h2>Historical Exchange Rate (7 Days)</h2>
+                
+                <div class="chart-controls">
+                    <select id="chartFromCurrency">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="RWF">RWF</option>
+                        <option value="KES">KES</option>
+                    </select>
+                    <span>→</span>
+                    <select id="chartToCurrency">
+                        <option value="RWF">RWF</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="KES">KES</option>
+                    </select>
+                    <button id="loadChartBtn" class="btn-secondary">Load Chart</button>
+                </div>
+
+                <canvas id="rateChart" style="margin-top: 20px; max-width: 100%;"></canvas>
+            </section>
+        </main>
+
+        <footer>
+            <p>✅ Powered by Free Currency API | Last updated: <span id="lastUpdate">--</span></p>
+            <p>🚀 CurrentIt v1.0 | Built with ❤️ for Rwanda</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
