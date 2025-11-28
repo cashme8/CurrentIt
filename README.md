@@ -1,20 +1,20 @@
-# 💱 CurrentIt - Rwanda Currency Converter & Exchange Rate Dashboard
+# CurrentIt - Rwanda Currency Converter & Exchange Rate Dashboard
 
 A full-stack web application for real-time currency conversion and historical exchange rate tracking, specifically designed for Rwanda (RWF).
 
-## 🌟 Features
+## Features
 
-- ✅ **Real-time Currency Conversion** - Convert between multiple currencies (USD, EUR, KES, RWF, GBP, JPY)
-- ✅ **Exchange Rate History** - View 7-day or 30-day historical charts
-- ✅ **Smart Caching** - Backend caches API responses for 1 hour (reduces API calls)
-- ✅ **Error Handling** - Graceful fallback when API is unavailable
-- ✅ **Responsive Design** - Works on desktop, tablet, and mobile
-- ✅ **Fast & Lightweight** - No heavy dependencies
+- **Real-time Currency Conversion** - Convert between multiple currencies (USD, EUR, KES, RWF, GBP, JPY)
+- **Exchange Rate History** - View 7-day or 30-day historical charts
+- **Smart Caching** - Backend caches API responses for 1 hour (reduces API calls)
+- **Error Handling** - Graceful fallback when API is unavailable
+- **Responsive Design** - Works on desktop, tablet, and mobile
+- **Fast & Lightweight** - No heavy dependencies
 
-## 🏗️ Architecture
+## Architecture
 
 ```
-Frontend (HTML/CSS/JS) → Backend (Node.js/Express) → External API (exchangerate.host)
+Frontend (HTML/CSS/JS) -> Backend (Node.js/Express) -> External API (exchangerate.host)
 ```
 
 ### Backend Endpoints
@@ -22,9 +22,10 @@ Frontend (HTML/CSS/JS) → Backend (Node.js/Express) → External API (exchanger
 - `GET /api/convert?from=USD&to=RWF&amount=100` - Convert currency
 - `GET /api/history?base=USD&to=RWF&days=7` - Get historical rates
 
-## 🚀 Local Setup
+## Local Setup
 
 ### Prerequisites
+
 - Node.js (v14+)
 - npm
 
@@ -49,7 +50,7 @@ python -m http.server 8000
 
 Frontend runs on `http://localhost:8000`
 
-## 📊 Tech Stack
+## Tech Stack
 
 - **Frontend**: HTML5, CSS3, JavaScript (vanilla), Chart.js
 - **Backend**: Node.js, Express.js
@@ -57,14 +58,14 @@ Frontend runs on `http://localhost:8000`
 - **External API**: exchangerate.host (free, no key required)
 - **Deployment**: Nginx, Systemd
 
-## 🔒 Security
+## Security
 
 - API responses cached server-side
 - No sensitive data exposed to frontend
 - CORS enabled for safe cross-origin requests
 - Environment variables for configuration
 
-## 📈 Deployment
+## Deployment
 
 ### Web Servers (Web01 & Web02)
 
@@ -87,7 +88,7 @@ upstream currentit_servers {
 }
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
@@ -96,9 +97,10 @@ upstream currentit_servers {
 | Chart not loading | Ensure backend is running |
 | CORS errors | Verify backend CORS is enabled |
 
-## 📝 API Response Examples
+## API Response Examples
 
 ### Convert Request
+
 ```json
 {
   "base": "USD",
@@ -109,6 +111,7 @@ upstream currentit_servers {
 ```
 
 ### History Request
+
 ```json
 {
   "base": "USD",
@@ -120,10 +123,10 @@ upstream currentit_servers {
 }
 ```
 
-## 👨‍💻 Author
+## Author
 
 Built for Rwanda | 2025
 
-## 📄 License
+## License
 
 MIT
