@@ -97,6 +97,10 @@ upstream currentit_servers {
 | Chart not loading | Ensure backend is running |
 | CORS errors | Verify backend CORS is enabled |
 
+## Demo Video
+
+[YouTube Demo Link](https://www.youtube.com/watch?v=your-video-id)
+
 ## API Response Examples
 
 ### Convert Request
@@ -124,6 +128,8 @@ upstream currentit_servers {
 ```
 
 ## Author
+
+KABANDA GISLAIN
 
 Built for Rwanda | 2025
 
