@@ -1,139 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CurrentIt - Rwanda Currency Converter</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Market Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1em;
+    }
+
+    .controls {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .control-group label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #667eea;
+      font-size: 0.9em;
+    }
+
+    input, select {
+      padding: 10px 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: all 0.3s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    button {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 1em;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .status-bar {
+      background: white;
+      padding: 15px 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95em;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .status-text {
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    .status-time {
+      color: #999;
+      font-size: 0.9em;
+    }
+
+    .main-content {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    th {
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    th:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    tbody tr {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    tbody tr:hover {
+      background: #f9f9f9;
+    }
+
+    .coin-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .coin-image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    .coin-symbol {
+      color: #999;
+      font-size: 0.9em;
+      font-weight: normal;
+    }
+
+    .price {
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .change-positive {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .change-negative {
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    .chart-container {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-top: 30px;
+    }
+
+    .chart-container.active {
+      display: block;
+    }
+
+    .chart-title {
+      font-size: 1.5em;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
+    #priceChart {
+      max-width: 100%;
+      height: 400px;
+    }
+
+    .close-chart {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #f0f0f0;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background 0.2s;
+    }
+
+    .close-chart:hover {
+      background: #e0e0e0;
+    }
+
+    .error-message {
+      background: #fee;
+      color: #c33;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      border-left: 4px solid #c33;
+    }
+
+    .empty-state {
+      padding: 40px;
+      text-align: center;
+      color: #999;
+    }
+
+    .empty-state p {
+      font-size: 1.1em;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 0.9em;
+      }
+
+      th, td {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <h1>CurrentIt</h1>
-                <p>Rwanda Currency Converter & Exchange Rate Dashboard</p>
-            </div>
-        </header>
+  <div class="container">
+    <header>
+      <h1>📊 Crypto Market Dashboard</h1>
+      <p class="subtitle">Real-time cryptocurrency market data powered by CoinGecko</p>
+    </header>
 
-        <main>
-            <!-- Converter Section -->
-            <section class="converter-section">
-                <h2>Quick Converter</h2>
-                <div class="converter-form">
-                    <div class="form-group">
-                        <label for="amount">Amount:</label>
-                        <input 
-                            type="number" 
-                            id="amount" 
-                            value="1" 
-                            min="0.01" 
-                            step="0.01"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fromCurrency">From:</label>
-                        <select id="fromCurrency">
-                            <option value="USD">USD - US Dollar</option>
-                            <option value="RWF" selected>RWF - Rwandan Franc</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="KES">KES - Kenyan Shilling</option>
-                            <option value="UGX">UGX - Uganda Shilling</option>
-                            <option value="TZS">TZS - Tanzanian Shilling</option>
-                            <option value="GBP">GBP - British Pound</option>
-                            <option value="JPY">JPY - Japanese Yen</option>
-                            <option value="CNY">CNY - Chinese Yuan</option>
-                        </select>
-                    </div>
-
-                    <div class="swap-btn">
-                        <button id="swapBtn" title="Swap currencies">⇄</button>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="toCurrency">To:</label>
-                        <select id="toCurrency">
-                            <option value="USD" selected>USD - US Dollar</option>
-                            <option value="RWF">RWF - Rwandan Franc</option>
-                            <option value="EUR">EUR - Euro</option>
-                            <option value="KES">KES - Kenyan Shilling</option>
-                            <option value="UGX">UGX - Uganda Shilling</option>
-                            <option value="TZS">TZS - Tanzanian Shilling</option>
-                            <option value="GBP">GBP - British Pound</option>
-                            <option value="JPY">JPY - Japanese Yen</option>
-                            <option value="CNY">CNY - Chinese Yuan</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="conversionResult" class="result-box" style="display: none;">
-                    <div class="result-content">
-                        <span id="resultText"></span>
-                        <small id="resultTime"></small>
-                    </div>
-                </div>
-
-                <button id="convertBtn" class="btn-primary">Convert</button>
-            </section>
-
-            <!-- Error/Loading -->
-            <div id="loading" class="loading" style="display: none;">Loading...</div>
-            <div id="error" class="error-message" style="display: none;"></div>
-
-            <!-- Exchange Rates Table -->
-            <section class="rates-section">
-                <h2>Current Exchange Rates (Base: USD)</h2>
-                
-                <div class="controls">
-                    <input 
-                        type="text" 
-                        id="searchCurrency" 
-                        placeholder="Search currency..."
-                        class="search-input"
-                    >
-                    <select id="sortBy" class="sort-select">
-                        <option value="name">Sort by Name</option>
-                        <option value="rate">Sort by Rate</option>
-                    </select>
-                </div>
-
-                <div id="ratesTable" class="rates-table">
-                    <!-- Will be populated by JavaScript -->
-                </div>
-            </section>
-
-            <!-- Historical Chart -->
-            <section class="chart-section">
-                <h2>Historical Exchange Rate (7 Days)</h2>
-                
-                <div class="chart-controls">
-                    <select id="chartFromCurrency">
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="RWF">RWF</option>
-                        <option value="KES">KES</option>
-                    </select>
-                    <span>→</span>
-                    <select id="chartToCurrency">
-                        <option value="RWF">RWF</option>
-                        <option value="USD">USD</option>
-                        <option value="EUR">EUR</option>
-                        <option value="KES">KES</option>
-                    </select>
-                    <button id="loadChartBtn" class="btn-secondary">Load Chart</button>
-                </div>
-
-                <canvas id="rateChart" style="margin-top: 20px; max-width: 100%;"></canvas>
-            </section>
-        </main>
-
-        <footer>
-            <p>Powered by Free Currency API | Last updated: <span id="lastUpdate">--</span></p>
-            <p>CurrentIt v1.0 | Built with love for Rwanda</p>
-        </footer>
+    <div class="controls">
+      <div class="control-group">
+        <label for="search">🔍 Search</label>
+        <input type="text" id="search" placeholder="Bitcoin, Ethereum, BTC, ETH...">
+      </div>
+      <div class="control-group">
+        <label for="sort">📈 Sort By</label>
+        <select id="sort">
+          <option value="market_cap_desc">Market Cap ↓</option>
+          <option value="market_cap_asc">Market Cap ↑</option>
+          <option value="price_desc">Price ↓</option>
+          <option value="price_asc">Price ↑</option>
+          <option value="change_desc">24h Change ↓</option>
+          <option value="change_asc">24h Change ↑</option>
+          <option value="volume_desc">Volume ↓</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="filter">🎯 Filter</label>
+        <select id="filter">
+          <option value="all">All Coins</option>
+          <option value="gainers">Gainers (24h +)</option>
+          <option value="losers">Losers (24h -)</option>
+          <option value="top10">Top 10</option>
+          <option value="top50">Top 50</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>&nbsp;</label>
+        <button id="refresh">🔄 Refresh Data</button>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="errorContainer"></div>
+
+    <div class="status-bar">
+      <span class="status-text" id="status">Loading coins...</span>
+      <span class="status-time" id="lastUpdate">Last updated: —</span>
+    </div>
+
+    <div class="main-content">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Coin</th>
+            <th>Price (USD)</th>
+            <th>24h Change</th>
+            <th>Market Cap</th>
+            <th>Volume (24h)</th>
+          </tr>
+        </thead>
+        <tbody id="coinsTable">
+          <tr><td colspan="6" class="empty-state"><p>Loading...</p></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="chartContainer" class="chart-container">
+      <div class="chart-title" id="chartTitle">Bitcoin - 7 Day Price Chart</div>
+      <canvas id="priceChart"></canvas>
+      <button class="close-chart" onclick="closeChart()">Close Chart</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>

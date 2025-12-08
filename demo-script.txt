@@ -1,0 +1,120 @@
+# Crypto Market Dashboard - 2 Minute Demo Script
+
+## TIMING: Total ~120 seconds
+
+---
+
+### [0:00-0:10] INTRO (10 seconds)
+**Visual:** Show title slide or desktop
+
+"Welcome to the Crypto Market Dashboard. This is a real-time cryptocurrency market analytics application built with Node.js, Express, and CoinGecko's free public API. Let me show you what it can do."
+
+---
+
+### [0:10-0:35] LIVE DEMO - MAIN INTERFACE (25 seconds)
+**Visual:** Open browser to http://localhost:3000 (or load balancer URL)
+
+"Here's the dashboard. You can see the top 250 cryptocurrencies ranked by market cap. Each row shows the coin name, current USD price, 24-hour percentage change, market cap, and 24-hour trading volume."
+
+**Click through a few coins**, scroll down to show data updating.
+
+"All the data is fetched from CoinGecko API and cached on the backend to avoid rate limiting and improve performance."
+
+---
+
+### [0:35-0:55] FEATURES DEMO (20 seconds)
+**Visual:** Demonstrate each control
+
+**1. Search (5 sec)**
+"Let's search for Bitcoin. I'll type 'bitcoin' here."
+- Type "bitcoin" in search box
+- Show results filtering in real-time
+- "The search works on both coin name and symbol."
+
+**2. Filter (5 sec)**
+"Now let's filter to show only gainers—coins with positive 24-hour returns."
+- Select "Gainers" from filter dropdown
+- Show table updating
+- "Now let's switch to showing only the top 10 coins."
+- Select "Top 10" from filter
+
+**3. Sort (5 sec)**
+"I can also sort by different metrics. Let me sort by 24-hour percentage change in descending order."
+- Select "24h Change ↓" from sort dropdown
+- Show table reordering
+- "The interface is fully responsive and updates instantly."
+
+**4. Refresh (5 sec)**
+"I can manually refresh the data at any time by clicking the Refresh button."
+- Click Refresh button
+- Show status updating to "Loading coins..." then back to loaded count
+
+---
+
+### [0:55-1:20] INTERACTIVE CHART (25 seconds)
+**Visual:** Click on a coin to show chart
+
+"Each coin is clickable. When I click on Bitcoin, it fetches the last 7 days of price history from CoinGecko and displays it in a live Chart.js graph."
+- Click on Bitcoin row
+- Show chart appearing with smooth animation
+- "This chart shows the price trend over the past week. You can see the price fluctuations in real time."
+- Wait 3-4 seconds for visual impact
+- Scroll down and click Close Chart
+
+"Let me click on Ethereum to show another coin's chart."
+- Click Ethereum
+- Show new chart loading
+- "Notice how the data is cached—subsequent requests are faster because we cache at the backend."
+
+---
+
+### [1:20-1:40] ARCHITECTURE & DEPLOYMENT (20 seconds)
+**Visual:** Show directory structure or terminal
+
+"Under the hood, the application is structured as follows:
+
+**Frontend:** Single HTML file with vanilla JavaScript—no build process required. It handles all user interactions: search, filtering, sorting, and chart interactions.
+
+**Backend:** Node.js Express server that proxies requests to CoinGecko and caches responses:
+- 30-second cache for market data (to stay within rate limits)
+- 5-minute cache for historical charts
+- 24-hour cache for coin lists
+
+**Deployment:** The app is deployed to two web servers (Web01 and Web02) and fronted by a load balancer (Lb01) running Nginx."
+
+---
+
+### [1:40-1:55] LOAD BALANCER TEST (15 seconds)
+**Visual:** Terminal running curl commands
+
+"Let's verify the load balancer is distributing traffic correctly."
+- Run terminal command:
+  ```bash
+  for i in {1..6}; do curl -s http://LB_IP/api/whoami | jq '.hostname'; done
+  ```
+- Show alternating hostnames: Web01, Web02, Web01, Web02, Web01, Web02
+- "As you can see, requests are being distributed evenly across both web servers."
+
+---
+
+### [1:55-2:00] CLOSING (5 seconds)
+**Visual:** Show GitHub repo link
+
+"The complete source code, including deployment scripts and configuration for the load balancer, is available on GitHub.
+
+Key features:
+✅ Real-time market data from CoinGecko
+✅ Fast, responsive interface
+✅ Secure API caching to avoid rate limits
+✅ Scalable deployment with load balancing
+✅ Zero external chart libraries (just vanilla JS and Chart.js)
+
+Thank you for watching!"
+
+---
+
+## TECHNICAL NOTES:
+- If CoinGecko is slow, the demo might lag. Have offline screenshots as backup.
+- Ensure `.env` doesn't contain sensitive keys before recording (they won't appear anyway if using environment variables properly).
+- Test all URLs (localhost:3000, LB URL, API endpoints) before recording.
+- Use a simple screen recorder (e.g., OBS, ScreenFlow, built-in screen capture) for smoothness.
