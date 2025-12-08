@@ -1,4 +1,5 @@
-# Crypto Market Dashboard
+# CurrentIt
+## Crypto Market Dashboard
 
 A real-time cryptocurrency market analytics web application built with Node.js and Express, powered by CoinGecko's public API. This application provides investors, traders, and cryptocurrency enthusiasts with meaningful data visualization and analysis tools to monitor market trends and make informed decisions.
 
@@ -598,9 +599,15 @@ curl http://localhost:3000/api/health
   - Process manager for Node.js applications
   - Provides startup scripts and monitoring
 
+## Demo Video
+
+[Watch on YouTube](https://youtu.be/hiihd3PRdf0)
+
 ## License
 
 This project is developed as part of an educational assignment.
+
+## Author - ***Kabanda Gislain***, ALU Student
 
 ## Support
 
